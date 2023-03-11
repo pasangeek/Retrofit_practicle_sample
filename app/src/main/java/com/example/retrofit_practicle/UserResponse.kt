@@ -1,21 +1,25 @@
 package com.example.retrofit_practicle
 
-class UserResponse (
+import com.google.gson.annotations.SerializedName
+
+data class UserResponse (
 
     var page: Int,
+    @SerializedName("per_page")
     var perPage: Int,
     var total: Int,
-    var totalPages,
-    var data: List<user>,
+    @SerializedName("total_pages")
+    var totalPages:Int,
+    var data: List<User>,
     var support:Support
 )
 
-data class user (
+data class User (
 
     var id: Int,
     var email: String,
-    var firstname: String,
-    var lastName: String,
+    var first_Name: String,
+    var last_Name: String,
     var avatar: String
 
 
