@@ -8,7 +8,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.Dispatcher
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,6 +43,9 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val userResponse = response.body()
                     Log.i("LNBTI", "${userResponse.toString()}")
+                    withContext(Dispatchers.Main){
+                    textView.text = userResponse.toString()
+                    }
                 } else {
                     Toast.makeText(
                         this@MainActivity,
