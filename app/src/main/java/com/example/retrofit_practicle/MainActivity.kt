@@ -39,12 +39,25 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val response = apiInterface.getUsers()
+                val response = apiInterface.getUsers(2)
                 if (response.isSuccessful) {
                     val userResponse = response.body()
                     Log.i("LNBTI", "${userResponse.toString()}")
                     withContext(Dispatchers.Main){
-                    textView.text = userResponse.toString()
+                       // textView.text = userResponse.toString()
+                        //textView.text = userResponse?.data!![1].lastName
+
+                        var strUser : String
+                        var usersRecord : String =""
+                        for (user in userResponse?.data!!){
+
+                            with(user){
+                                 strUser = "${user.id} \n ${user.firstName} \n ${user.lastName} \n ${user.email}\n"
+                            }
+                            usersRecord += strUser
+                        }
+textView.text= usersRecord
+
                     }
                 } else {
                     Toast.makeText(
